@@ -106,6 +106,7 @@ with col1:
 
     fig, ax = plt.subplots(figsize=(4,2))
     ax.imshow(wordcloud)
+    ax.set_title("spam_words")
     ax.axis("off")
     st.pyplot(fig)
 
@@ -120,6 +121,7 @@ with col2:
 
     fig, ax = plt.subplots(figsize=(4,2))
     ax.imshow(wordcloud)
+    ax.set_title("ham_words")
     ax.axis("off")
     st.pyplot(fig)
 
