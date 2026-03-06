@@ -27,9 +27,16 @@ st.sidebar.write("Model: Naive Bayes")
 
 @st.cache_data
 def load_data():
+
     df = pd.read_csv("data/spam.csv", encoding="latin1")
+
     df = df[['v1','v2']]
     df.columns = ['label','text']
+
+    # Fix Streamlit dataset preview error
+    df['label'] = df['label'].astype(str)
+    df['text'] = df['text'].astype(str)
+
     return df
 
 df = load_data()
@@ -40,8 +47,10 @@ df = load_data()
 
 @st.cache_resource
 def load_model():
+
     model = pickle.load(open("models/model.pkl","rb"))
     vectorizer = pickle.load(open("models/vectorizer.pkl","rb"))
+
     return model, vectorizer
 
 model, vectorizer = load_model()
@@ -67,6 +76,8 @@ col3.metric("Ham Messages", len(df[df['label']=="ham"]))
 # -------------------------
 
 st.subheader("Dataset Preview")
+
+# table is safer than dataframe on cloud
 st.table(df.head())
 
 # -------------------------
@@ -77,6 +88,7 @@ st.subheader("Word Cloud Analysis")
 
 col1, col2 = st.columns(2)
 
+# Spam Wordcloud
 with col1:
 
     spam_words = " ".join(df[df['label']=="spam"]['text'])
@@ -93,6 +105,7 @@ with col1:
 
     st.pyplot(fig)
 
+# Ham Wordcloud
 with col2:
 
     ham_words = " ".join(df[df['label']=="ham"]['text'])
