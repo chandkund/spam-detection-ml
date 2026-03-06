@@ -64,7 +64,7 @@ st.title("📊 SMS Spam Detection Dashboard")
 # -------------------------
 
 st.subheader("Model Performance")
-st.success("Model Accuracy: **97%**")
+st.success("Model Accuracy: **98%**")
 
 # -------------------------
 # Dataset Info

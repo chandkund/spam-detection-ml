@@ -1,8 +1,8 @@
 import pickle
-from preprocess import clean_text
+from src.preprocess import clean_text
 
-model = pickle.load(open("../models/model.pkl","rb"))
-vectorizer = pickle.load(open("../models/vectorizer.pkl","rb"))
+model = pickle.load(open("models/model.pkl","rb"))
+vectorizer = pickle.load(open("models/vectorizer.pkl","rb"))
 
 def predict_spam(message):
 

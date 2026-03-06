@@ -1,5 +1,5 @@
 import pandas as pd
-from preprocess import clean_text
+from src.preprocess import clean_text
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 
 # Load dataset
-df = pd.read_csv("../data/spam.csv", encoding="latin1")
+df = pd.read_csv("data/spam.csv", encoding="latin1")
 df = df[['v1','v2']]
 df.columns = ['label','text']
 
