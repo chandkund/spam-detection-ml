@@ -67,7 +67,7 @@ col3.metric("Ham Messages", len(df[df['label']=="ham"]))
 # -------------------------
 
 st.subheader("Dataset Preview")
-st.dataframe(df.head())
+st.table(df.head())
 
 # -------------------------
 # Word Cloud Section
