@@ -82,7 +82,7 @@ col3.metric("Ham Messages", len(df[df['label']=="ham"]))
 
 st.subheader("Dataset Preview")
 
-preview_df = df.head(10).copy()
+preview_df = df.head(5).copy()
 preview_df = preview_df.astype(str)
 
 st.write(preview_df)
