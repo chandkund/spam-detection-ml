@@ -3,7 +3,6 @@ import pandas as pd
 import pickle
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-from collections import Counter
 
 # -------------------------
 # Page Configuration
@@ -34,8 +33,10 @@ def load_data():
     df = pd.read_csv("data/spam.csv", encoding="latin1")
     df = df[['v1','v2']]
     df.columns = ['label','text']
-    df['label'] = df['label'].astype(str)
-    df['text'] = df['text'].astype(str)
+
+    # Fix Streamlit LargeUtf8 error
+    df = df.astype(str)
+
     return df
 
 df = load_data()
@@ -80,7 +81,11 @@ col3.metric("Ham Messages", len(df[df['label']=="ham"]))
 # -------------------------
 
 st.subheader("Dataset Preview")
-st.table(df.head())
+
+preview_df = df.head(10).copy()
+preview_df = preview_df.astype(str)
+
+st.dataframe(preview_df)
 
 # -------------------------
 # Word Clouds
@@ -117,26 +122,6 @@ with col2:
     ax.imshow(wordcloud)
     ax.axis("off")
     st.pyplot(fig)
-
-# -------------------------
-# Top Spam Words
-# -------------------------
-
-st.subheader("Top Spam Words")
-
-spam_text = " ".join(df[df['label']=="spam"]['text'])
-words = spam_text.split()
-
-common_words = Counter(words).most_common(10)
-
-word_list = [i[0] for i in common_words]
-count_list = [i[1] for i in common_words]
-
-fig, ax = plt.subplots(figsize=(6,3))
-ax.bar(word_list, count_list)
-ax.set_title("Top 10 Spam Words")
-
-st.pyplot(fig)
 
 # -------------------------
 # Prediction Section
@@ -178,7 +163,7 @@ if st.button("Predict"):
             st.success("✅ Message is Safe")
 
         # -------------------------
-        # AI Probability Meter
+        # Spam Probability Meter
         # -------------------------
 
         st.subheader("Spam Probability Meter")
