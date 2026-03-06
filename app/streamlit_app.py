@@ -85,7 +85,7 @@ st.subheader("Dataset Preview")
 preview_df = df.head(10).copy()
 preview_df = preview_df.astype(str)
 
-st.dataframe(preview_df)
+st.write(preview_df)
 
 # -------------------------
 # Word Clouds
